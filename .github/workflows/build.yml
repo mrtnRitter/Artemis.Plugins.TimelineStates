@@ -15,7 +15,7 @@ jobs:
         run: dotnet publish -c Release src
 
       # You'll need to fill in the name of your plugin here
-      # - name: Upload
-      #   uses: actions/upload-artifact@v3
-      #   with:
-      #     path: src/{{pluginName}}/bin/x64/Release/net7.0/publish
+      - name: upload
+        uses: actions/upload-artifact@v4
+        with:
+          path: src/artemis.plugins.timelinestates/bin/x64/release/net7.0/publish
