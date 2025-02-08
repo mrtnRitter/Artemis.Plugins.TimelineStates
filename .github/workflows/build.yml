@@ -18,4 +18,4 @@ jobs:
       - name: upload
         uses: actions/upload-artifact@v4
         with:
-          path: src/artemis.plugins.timelinestates/bin/x64/release/net8.0/publish
+          path: src/Artemis.Plugins.TimelineStates/bin/x64/release/net8.0/publish
