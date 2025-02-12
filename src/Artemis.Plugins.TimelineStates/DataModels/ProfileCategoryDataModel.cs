@@ -4,7 +4,7 @@ using System.Reflection;
 using Artemis.Core;
 using Artemis.Core.Modules;
 
-namespace Artemis.Plugins.Modules.Profiles.DataModels;
+namespace Artemis.Plugins.TimelineStates.DataModels;
 
 public class ProfileCategoryDataModel : DataModel, IDisposable
 {
@@ -22,10 +22,10 @@ public class ProfileCategoryDataModel : DataModel, IDisposable
 
     public int ProfileCount => _profileCategory.ProfileConfigurations.Count;
     public int ActiveProfileCount => _profileCategory.ProfileConfigurations.Count(c => c.Profile != null);
-    
+
     public override DataModelPropertyAttribute GetPropertyDescription(PropertyInfo propertyInfo)
     {
-        return new DataModelPropertyAttribute {Name = _profileCategory.Name};
+        return new DataModelPropertyAttribute { Name = _profileCategory.Name };
     }
 
     public void Dispose()

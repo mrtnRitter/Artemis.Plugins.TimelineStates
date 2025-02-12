@@ -3,9 +3,9 @@ using System.Linq;
 using Artemis.Core;
 using Artemis.Core.Modules;
 using Artemis.Core.Services;
-using Artemis.Plugins.Modules.Profiles.DataModels;
+using Artemis.Plugins.TimelineStates.DataModels;
 
-namespace Artemis.Plugins.Modules.Profiles;
+namespace Artemis.Plugins.TimelineStates;
 
 public class ProfilesModule : Module<ProfilesDataModel>
 {
