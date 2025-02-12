@@ -7,11 +7,11 @@ using Artemis.Plugins.TimelineStates.DataModels;
 
 namespace Artemis.Plugins.TimelineStates;
 
-public class ProfilesModule : Module<ProfilesDataModel>
+public class TimelineStates : Module<ProfilesDataModel>
 {
     private readonly IProfileService _profileService;
 
-    public ProfilesModule(IProfileService profileService)
+    public TimelineStates(IProfileService profileService)
     {
         _profileService = profileService;
     }
