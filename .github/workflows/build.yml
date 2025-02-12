@@ -10,6 +10,9 @@ jobs:
     steps:
       - name: Clone
         uses: actions/checkout@v2
+
+      - name: Setup .NET
+        uses: action/setup-dotnet@v4
         with:
             dotnet-version: 9.0.x
 
