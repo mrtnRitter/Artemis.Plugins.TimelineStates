@@ -46,8 +46,8 @@ public class TimelineStates : Module<ProfilesDataModel>
     {
         return new DataModelPropertyAttribute
         {
-            Name = "Artemis Profiles",
-            Description = "A data model containing all your Artemis profiles organized by category"
+            Name = "Timeline States",
+            Description = "Hopefully gives access to timeline states"
         };
     }
 
