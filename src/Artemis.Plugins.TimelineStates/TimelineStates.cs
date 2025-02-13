@@ -7,16 +7,11 @@ using Artemis.Plugins.TimelineStates.DataModels;
 
 namespace Artemis.Plugins.TimelineStates;
 
-public class TimelineStates : Module<ProfilesDataModel>
+public class TimelineStates(IProfileService profileService) : Module<TimelineDataModel>
 {
-    private readonly IProfileService _profileService;
+    private readonly IProfileService _profileService = profileService;
 
-    public TimelineStates(IProfileService profileService)
-    {
-        _profileService = profileService;
-    }
-
-    public override List<IModuleActivationRequirement> ActivationRequirements => null;
+    public override List<IModuleActivationRequirement>? ActivationRequirements => null;
 
     public override void Enable()
     {
@@ -46,7 +41,7 @@ public class TimelineStates : Module<ProfilesDataModel>
     {
         return new DataModelPropertyAttribute
         {
-            Name = "Timeline States",
+            Name = "++Timeline States",
             Description = "Hopefully gives access to timeline states"
         };
     }
@@ -55,12 +50,12 @@ public class TimelineStates : Module<ProfilesDataModel>
     {
     }
 
-    private void ProfileServiceOnProfileCategoryAdded(object sender, ProfileCategoryEventArgs e)
+    private void ProfileServiceOnProfileCategoryAdded(object? sender, ProfileCategoryEventArgs e)
     {
         DataModel.AddDynamicChild(e.ProfileCategory.EntityId.ToString(), new ProfileCategoryDataModel(e.ProfileCategory), e.ProfileCategory.Name);
     }
 
-    private void ProfileServiceOnProfileCategoryRemoved(object sender, ProfileCategoryEventArgs e)
+    private void ProfileServiceOnProfileCategoryRemoved(object? sender, ProfileCategoryEventArgs e)
     {
         DynamicChild<ProfileCategoryDataModel> dataModel = DataModel.GetDynamicChild<ProfileCategoryDataModel>(e.ProfileCategory.EntityId.ToString());
         DataModel.RemoveDynamicChild(dataModel);

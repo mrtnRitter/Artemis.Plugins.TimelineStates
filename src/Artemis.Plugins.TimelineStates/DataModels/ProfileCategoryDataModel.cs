@@ -34,12 +34,12 @@ public class ProfileCategoryDataModel : DataModel, IDisposable
         _profileCategory.ProfileConfigurationRemoved -= ProfileCategoryOnProfileConfigurationRemoved;
     }
 
-    private void ProfileCategoryOnProfileConfigurationAdded(object sender, ProfileConfigurationEventArgs e)
+    private void ProfileCategoryOnProfileConfigurationAdded(object? sender, ProfileConfigurationEventArgs e)
     {
         AddDynamicChild(e.ProfileConfiguration.ProfileId.ToString(), new ProfileConfigurationDataModel(e.ProfileConfiguration), e.ProfileConfiguration.Name);
     }
 
-    private void ProfileCategoryOnProfileConfigurationRemoved(object sender, ProfileConfigurationEventArgs e)
+    private void ProfileCategoryOnProfileConfigurationRemoved(object? sender, ProfileConfigurationEventArgs e)
     {
         RemoveDynamicChildByKey(e.ProfileConfiguration.ProfileId.ToString());
     }
