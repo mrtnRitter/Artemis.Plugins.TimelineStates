@@ -8,6 +8,6 @@ public class ProfileConfigurationDataModel(ProfileConfiguration profileConfigura
     private readonly ProfileConfiguration _profileConfiguration = profileConfiguration;
     public string Profilename => _profileConfiguration.Profile?.Name ?? "No Name";
 
-    public System.Collections.Generic.List<RenderProfileElement>Test => _profileConfiguration.Profile.GetAllRenderElements();
+    public System.Collections.Generic.List<Layer> Test => _profileConfiguration.Profile.GetAllLayers();
 
 };
