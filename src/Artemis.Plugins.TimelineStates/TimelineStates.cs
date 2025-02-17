@@ -21,6 +21,8 @@ public class TimelineStates(IProfileService profileService) : Module<TimelineDat
         foreach (ProfileCategory profileCategory in _profileService.ProfileCategories)
             foreach (ProfileConfiguration profileConfiguration in profileCategory.ProfileConfigurations)
                 DataModel.AddDynamicChild(profileConfiguration.ProfileId.ToString(), new ProfileConfigurationDataModel(profileConfiguration), profileConfiguration.Name);
+
+
     }
 
     public override void Disable()

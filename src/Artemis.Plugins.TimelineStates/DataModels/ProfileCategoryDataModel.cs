@@ -20,14 +20,6 @@ public class ProfileCategoryDataModel : DataModel, IDisposable
             AddDynamicChild(profileConfiguration.ProfileId.ToString(), new ProfileConfigurationDataModel(profileConfiguration), profileConfiguration.Name);
     }
 
-    public int ProfileCount => _profileCategory.ProfileConfigurations.Count;
-    public int ActiveProfileCount => _profileCategory.ProfileConfigurations.Count(c => c.Profile != null);
-
-    public override DataModelPropertyAttribute GetPropertyDescription(PropertyInfo propertyInfo)
-    {
-        return new DataModelPropertyAttribute { Name = _profileCategory.Name };
-    }
-
     public void Dispose()
     {
         _profileCategory.ProfileConfigurationAdded -= ProfileCategoryOnProfileConfigurationAdded;
