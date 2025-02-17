@@ -19,7 +19,8 @@ public class TimelineStates(IProfileService profileService) : Module<TimelineDat
         _profileService.ProfileCategoryRemoved += ProfileServiceOnProfileCategoryRemoved;
 
         foreach (ProfileCategory profileCategory in _profileService.ProfileCategories)
-            DataModel.AddDynamicChild(profileCategory.EntityId.ToString(), new ProfileCategoryDataModel(profileCategory), profileCategory.Name);
+            foreach (ProfileConfiguration profileConfiguration in profileCategory.ProfileConfigurations)
+                DataModel.AddDynamicChild(profileConfiguration.ProfileId.ToString(), new ProfileConfigurationDataModel(profileConfiguration), profileConfiguration.Name);
     }
 
     public override void Disable()
