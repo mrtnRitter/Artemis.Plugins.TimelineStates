@@ -7,6 +7,7 @@ public class ProfileConfigurationDataModel(ProfileConfiguration profileConfigura
 {
     private readonly ProfileConfiguration _profileConfiguration = profileConfiguration;
     public string Profilename => _profileConfiguration.Profile?.Name ?? "No Name";
-    public string Test => _profileConfiguration.Name;
+
+    public System.Collections.Generic.List<RenderProfileElement>Test => _profileConfiguration.Profile.GetAllRenderElements();
 
 };
