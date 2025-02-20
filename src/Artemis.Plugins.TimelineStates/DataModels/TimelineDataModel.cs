@@ -12,7 +12,8 @@ public class TimelineDataModel : DataModel
     {
         _layer = layer;
 
-        AddDynamicChild(layer.Timeline.ToString().Split(".")[0], layer.Timeline.Length, "Length");
+        AddDynamicChild("tl", layer.Timeline.Length, "Total Length");
+        AddDynamicChild("ssl", layer.Timeline.StartSegmentLength, "Start Segment Length");
 
     }
 
