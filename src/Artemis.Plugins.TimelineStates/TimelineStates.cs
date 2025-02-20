@@ -18,6 +18,9 @@ public class TimelineStates(IProfileService profileService) : Module<TimelineDat
         _profileService.ProfileCategoryAdded += ProfileServiceOnProfileCategoryAdded;
         _profileService.ProfileCategoryRemoved += ProfileServiceOnProfileCategoryRemoved;
 
+        DataModel.AddDynamicChild("Title", "Profiles");
+
+
         foreach (ProfileCategory profileCategory in _profileService.ProfileCategories)
             foreach (ProfileConfiguration profileConfiguration in profileCategory.ProfileConfigurations)
                 DataModel.AddDynamicChild(profileConfiguration.ProfileId.ToString(), new ProfileConfigurationDataModel(profileConfiguration), profileConfiguration.Name);
