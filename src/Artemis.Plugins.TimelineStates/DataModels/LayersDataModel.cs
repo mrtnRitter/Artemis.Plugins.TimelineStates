@@ -13,7 +13,7 @@ public class LayersDataModel : DataModel
 
         foreach (Layer layer in _profileConfiguration.Profile.GetAllLayers())
         {
-            AddDynamicChild(layer.EntityId.ToString().Split(".")[0], new TimelineDataModel(layer), layer.Name);
+            AddDynamicChild(layer.EntityId.ToString(), new TimelineDataModel(layer), layer.Name);
         }
     }
 

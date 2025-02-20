@@ -12,8 +12,8 @@ public class TimelineDataModel : DataModel
     {
         _layer = layer;
         TimeSpan _length = layer.Timeline.Length;
-        
-        AddDynamicChild(layer.Timeline.ToString(), _length, "Length");
+
+        AddDynamicChild(layer.Timeline.ToString().Split(".")[0], _length, "Length");
 
     }
 
