@@ -10,9 +10,9 @@ public class ProfileConfigurationDataModel(ProfileConfiguration profileConfigura
 
     public System.Collections.Generic.List<Layer> Test => _profileConfiguration.Profile.GetAllLayers();
  
-    void listtl()
-    {
-        foreach (Layer layer in Test)
-            layer.Timeline.Length;
-    }
+    //void listtl()
+    //{
+    //    foreach (Layer layer in Test)
+    //        layer.Timeline.Length;
+    //}
 };
