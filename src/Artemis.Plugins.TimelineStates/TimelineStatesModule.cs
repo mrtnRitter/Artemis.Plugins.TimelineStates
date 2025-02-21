@@ -18,30 +18,26 @@ public class TimelineStatesModule(IProfileService profileService) : Module<Timel
         };
     }
 
-    private readonly IProfileService _profileService = profileService;
-
-
     public override List<IModuleActivationRequirement>? ActivationRequirements => null;
 
     public override void Enable()
     {
-        _profileService.ProfileRemoved += ProfileRemoved;
+        profileService.ProfileRemoved += ProfileRemoved;
 
-        foreach (ProfileCategory profileCategory in _profileService.ProfileCategories)
+        foreach (ProfileCategory profileCategory in profileService.ProfileCategories)
             foreach (ProfileConfiguration profileConfiguration in profileCategory.ProfileConfigurations)
                 DataModel.AddDynamicChild(profileConfiguration.ProfileId.ToString(), new LayersDataModel(profileConfiguration), profileConfiguration.Name);
     }
 
     public override void Disable()
     {
-        _profileService.ProfileRemoved -= ProfileRemoved;
+        //_profileService.ProfileRemoved -= ProfileRemoved;
 
-        List<LayersDataModel> dataModels = DataModel.DynamicChildren
-            .Where(c => c.Value.BaseValue is LayersDataModel)
-            .Select(c => c.Value.BaseValue)
-            .Cast<LayersDataModel>()
-            .ToList();
-        DataModel.ClearDynamicChildren();
+        //List<LayersDataModel> dataModels = [.. DataModel.DynamicChildren
+        //    .Where(c => c.Value.BaseValue is LayersDataModel)
+        //    .Select(c => c.Value.BaseValue)
+        //    .Cast<LayersDataModel>()];
+        //DataModel.ClearDynamicChildren();
     }
 
     public override void Update(double deltaTime)
