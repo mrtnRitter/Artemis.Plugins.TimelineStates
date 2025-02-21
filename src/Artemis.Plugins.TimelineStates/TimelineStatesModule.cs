@@ -20,11 +20,11 @@ public class TimelineStatesModule(IProfileService profileService) : Module<Timel
 
     private readonly IProfileService _profileService = profileService;
 
+
     public override List<IModuleActivationRequirement>? ActivationRequirements => null;
 
     public override void Enable()
     {
-        _profileService.ProfileAdded += ProfileAdded;
         _profileService.ProfileRemoved += ProfileRemoved;
 
         foreach (ProfileCategory profileCategory in _profileService.ProfileCategories)
@@ -34,7 +34,6 @@ public class TimelineStatesModule(IProfileService profileService) : Module<Timel
 
     public override void Disable()
     {
-        _profileService.ProfileAdded -= ProfileAdded;
         _profileService.ProfileRemoved -= ProfileRemoved;
 
         List<LayersDataModel> dataModels = DataModel.DynamicChildren
@@ -50,12 +49,6 @@ public class TimelineStatesModule(IProfileService profileService) : Module<Timel
 
     }
 
-    private void ProfileAdded(object? sender, ProfileConfigurationEventArgs e)
-    {
-        foreach (ProfileCategory profileCategory in _profileService.ProfileCategories)
-            foreach (ProfileConfiguration profileConfiguration in profileCategory.ProfileConfigurations)
-                DataModel.AddDynamicChild(e.ProfileConfiguration.ProfileId.ToString(), new LayersDataModel(e.ProfileConfiguration), e.ProfileConfiguration.Name);
-    }
     private void ProfileRemoved(object? sender, ProfileConfigurationEventArgs e)
     {
         DataModel.RemoveDynamicChildByKey(e.ProfileConfiguration.ProfileId.ToString());
