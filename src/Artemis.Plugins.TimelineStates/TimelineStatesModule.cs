@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using Artemis.Core;
 using Artemis.Core.Modules;
 using Artemis.Core.Services;
@@ -23,6 +22,7 @@ public class TimelineStatesModule(IProfileService profileService) : Module<Timel
     public override void Enable()
     {
         profileService.ProfileRemoved += ProfileRemoved;
+        profileService.ProfileCategoryRemoved += CategoryRemoved;
 
         foreach (ProfileCategory profileCategory in profileService.ProfileCategories)
             foreach (ProfileConfiguration profileConfiguration in profileCategory.ProfileConfigurations)
@@ -31,8 +31,6 @@ public class TimelineStatesModule(IProfileService profileService) : Module<Timel
 
     public override void Disable()
     {
-        profileService.ProfileRemoved -= ProfileRemoved;
-        DataModel.ClearDynamicChildren();
     }
 
     public override void Update(double deltaTime)
@@ -42,6 +40,12 @@ public class TimelineStatesModule(IProfileService profileService) : Module<Timel
 
     private void ProfileRemoved(object? sender, ProfileConfigurationEventArgs e)
     {
-        DataModel.RemoveDynamicChildByKey(e.ProfileConfiguration.ProfileId.ToString());
+        //DataModel.RemoveDynamicChildByKey(e.ProfileConfiguration.ProfileId.ToString());
+        DataModel.ClearDynamicChildren();
+    }
+
+    private void CategoryRemoved (object? sender, ProfileCategoryEventArgs e)
+    {
+        DataModel.ClearDynamicChildren();
     }
 }

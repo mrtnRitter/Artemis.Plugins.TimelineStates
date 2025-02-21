@@ -7,9 +7,9 @@ namespace Artemis.Plugins.TimelineStates.DataModels;
 public class LayersDataModel : DataModel
 {
     public LayersDataModel(ProfileConfiguration profileConfiguration)
-    {       
-        profileConfiguration.Profile.ChildAdded += LayerAdded;        
-        
+    {
+        profileConfiguration.Profile.ChildAdded += LayerAdded;
+
         foreach (Layer layer in profileConfiguration.Profile.GetAllLayers())
         {
             AddDynamicChild(layer.EntityId.ToString(), new TimelineDataModel(layer), layer.Name);
