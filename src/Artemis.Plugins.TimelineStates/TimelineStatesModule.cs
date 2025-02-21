@@ -31,13 +31,8 @@ public class TimelineStatesModule(IProfileService profileService) : Module<Timel
 
     public override void Disable()
     {
-        //_profileService.ProfileRemoved -= ProfileRemoved;
-
-        //List<LayersDataModel> dataModels = [.. DataModel.DynamicChildren
-        //    .Where(c => c.Value.BaseValue is LayersDataModel)
-        //    .Select(c => c.Value.BaseValue)
-        //    .Cast<LayersDataModel>()];
-        //DataModel.ClearDynamicChildren();
+        profileService.ProfileRemoved -= ProfileRemoved;
+        DataModel.ClearDynamicChildren();
     }
 
     public override void Update(double deltaTime)

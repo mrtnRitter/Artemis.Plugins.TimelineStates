@@ -1,12 +1,13 @@
 using Artemis.Core;
 using Artemis.Core.Modules;
+using Serilog;
 
 namespace Artemis.Plugins.TimelineStates.DataModels;
 
 public class LayersDataModel : DataModel
 {
     public LayersDataModel(ProfileConfiguration profileConfiguration)
-    {
+    {       
         profileConfiguration.Profile.ChildAdded += LayerAdded;        
         
         foreach (Layer layer in profileConfiguration.Profile.GetAllLayers())
@@ -17,9 +18,9 @@ public class LayersDataModel : DataModel
     
     public void LayerAdded(object? sender, ProfileElementEventArgs e)
     {
-        AddDynamicChild(e.ProfileElement.EntityId.ToString() , e.ProfileElement.Children, "list");
-        
-        
+
+
+
         //if (e.ProfileElement is Layer)
         //{
         //    //Layer layer = (Layer)e.ProfileElement;
