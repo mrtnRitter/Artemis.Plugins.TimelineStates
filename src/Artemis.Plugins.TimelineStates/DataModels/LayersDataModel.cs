@@ -17,8 +17,9 @@ public class LayersDataModel : DataModel
     
     public void LayerAdded(object? sender, ProfileElementEventArgs e)
     {
-        if (e.ProfileElement is Layer layer)
+        if (e.ProfileElement is Layer)
         {
+            Layer layer = (Layer)e.ProfileElement;
             AddDynamicChild(layer.EntityId.ToString(), new TimelineDataModel(layer), layer.Name);
         }
     }
