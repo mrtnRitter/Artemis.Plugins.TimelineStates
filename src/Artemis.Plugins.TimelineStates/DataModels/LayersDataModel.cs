@@ -17,15 +17,15 @@ public class LayersDataModel : DataModel
     
     public void LayerAdded(object? sender, ProfileElementEventArgs e)
     {
-        if (e.ProfileElement is Layer)
-        {
-            Layer l = (Layer)e.ProfileElement;
+        AddDynamicChild(e.ProfileElement.EntityId.ToString() , e.ProfileElement.Children, "list");
+        
+        
+        //if (e.ProfileElement is Layer)
+        //{
+        //    //Layer layer = (Layer)e.ProfileElement;
+        //    //AddDynamicChild(layer.EntityId.ToString(), new TimelineDataModel(layer), layer.Name);
 
-            foreach (Layer layer in l.Profile.GetAllLayers())
-            {
-                AddDynamicChild(layer.EntityId.ToString(), new TimelineDataModel(layer), layer.Name);
-            }
-        }
+        //}
     }
 
 }   
