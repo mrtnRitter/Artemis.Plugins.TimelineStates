@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Artemis.Core;
 using Artemis.Core.Modules;
 using Artemis.Core.Services;
@@ -8,41 +9,6 @@ namespace Artemis.Plugins.TimelineStates;
 
 public class TimelineStatesModule(IProfileService profileService) : Module<TimelineStatesDataModel>
 {
-    private readonly IProfileService _profileService = profileService;
-
-    public override List<IModuleActivationRequirement>? ActivationRequirements => null;
-
-    public override void Enable()
-    {
-        //_profileService.ProfileCategoryAdded += ProfileServiceOnProfileCategoryAdded;
-        //_profileService.ProfileCategoryRemoved += ProfileServiceOnProfileCategoryRemoved;
-
-        foreach (ProfileCategory profileCategory in _profileService.ProfileCategories)
-            foreach (ProfileConfiguration profileConfiguration in profileCategory.ProfileConfigurations)
-                DataModel.AddDynamicChild(profileConfiguration.ProfileId.ToString(), new LayersDataModel(profileConfiguration), profileConfiguration.Name);
-
-
-
-
-
-
-    }
-
-    public override void Disable()
-    {
-        //_profileService.ProfileCategoryAdded -= ProfileServiceOnProfileCategoryAdded;
-        //_profileService.ProfileCategoryRemoved -= ProfileServiceOnProfileCategoryRemoved;
-
-        //List<ProfileCategoryDataModel> dataModels = DataModel.DynamicChildren
-        //    .Where(c => c.Value.BaseValue is ProfileCategoryDataModel)
-        //    .Select(c => c.Value.BaseValue)
-        //    .Cast<ProfileCategoryDataModel>()
-        //    .ToList();
-        //DataModel.ClearDynamicChildren();
-        //foreach (ProfileCategoryDataModel profileCategoryDataModel in dataModels)
-        //    profileCategoryDataModel.Dispose();
-    }
-
     public override DataModelPropertyAttribute GetDataModelDescription()
     {
         return new DataModelPropertyAttribute
@@ -52,19 +18,46 @@ public class TimelineStatesModule(IProfileService profileService) : Module<Timel
         };
     }
 
+    private readonly IProfileService _profileService = profileService;
+
+    public override List<IModuleActivationRequirement>? ActivationRequirements => null;
+
+    public override void Enable()
+    {
+        _profileService.ProfileAdded += ProfileAdded;
+        _profileService.ProfileRemoved += ProfileRemoved;
+
+        foreach (ProfileCategory profileCategory in _profileService.ProfileCategories)
+            foreach (ProfileConfiguration profileConfiguration in profileCategory.ProfileConfigurations)
+                DataModel.AddDynamicChild(profileConfiguration.ProfileId.ToString(), new LayersDataModel(profileConfiguration), profileConfiguration.Name);
+    }
+
+    public override void Disable()
+    {
+        _profileService.ProfileAdded -= ProfileAdded;
+        _profileService.ProfileRemoved -= ProfileRemoved;
+
+        List<LayersDataModel> dataModels = DataModel.DynamicChildren
+            .Where(c => c.Value.BaseValue is LayersDataModel)
+            .Select(c => c.Value.BaseValue)
+            .Cast<LayersDataModel>()
+            .ToList();
+        DataModel.ClearDynamicChildren();
+    }
+
     public override void Update(double deltaTime)
     {
+
     }
 
-    private void ProfileServiceOnProfileCategoryAdded(object? sender, ProfileCategoryEventArgs e)
+    private void ProfileAdded(object? sender, ProfileConfigurationEventArgs e)
     {
-        //DataModel.AddDynamicChild(e.ProfileCategory.EntityId.ToString(), new LayersDataModel(e.ProfileCategory), e.ProfileCategory.Name);
+        foreach (ProfileCategory profileCategory in _profileService.ProfileCategories)
+            foreach (ProfileConfiguration profileConfiguration in profileCategory.ProfileConfigurations)
+                DataModel.AddDynamicChild(e.ProfileConfiguration.ProfileId.ToString(), new LayersDataModel(e.ProfileConfiguration), e.ProfileConfiguration.Name);
     }
-
-    private void ProfileServiceOnProfileCategoryRemoved(object? sender, ProfileCategoryEventArgs e)
+    private void ProfileRemoved(object? sender, ProfileConfigurationEventArgs e)
     {
-        //DynamicChild<LayersDataModel> dataModel = DataModel.GetDynamicChild<LayersDataModel>(e.ProfileCategory.EntityId.ToString());
-        //DataModel.RemoveDynamicChild(dataModel);
-        //dataModel.Value.Dispose();
+        DataModel.RemoveDynamicChildByKey(e.ProfileConfiguration.ProfileId.ToString());
     }
 }

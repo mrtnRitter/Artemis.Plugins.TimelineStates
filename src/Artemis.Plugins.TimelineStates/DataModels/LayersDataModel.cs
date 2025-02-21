@@ -16,35 +16,4 @@ public class LayersDataModel : DataModel
             AddDynamicChild(layer.EntityId.ToString(), new TimelineDataModel(layer), layer.Name);
         }
     }
-
-
-        
-
-
-
-
-
-    //_profileCategory = profileCategory;
-    //_profileCategory.ProfileConfigurationAdded += ProfileCategoryOnProfileConfigurationAdded;
-    //_profileCategory.ProfileConfigurationRemoved += ProfileCategoryOnProfileConfigurationRemoved;
-
-    //foreach (ProfileConfiguration profileConfiguration in _profileCategory.ProfileConfigurations)
-    //    AddDynamicChild(profileConfiguration.ProfileId.ToString(), new ProfileConfigurationDataModel(profileConfiguration), profileConfiguration.Name);
-
-
-    public void Dispose()
-    {
-    //    //_profilecategory.profileconfigurationadded -= profilecategoryonprofileconfigurationadded;
-    //    //_profilecategory.profileconfigurationremoved -= profilecategoryonprofileconfigurationremoved;
-    }
-
-    //private void ProfileCategoryOnProfileConfigurationAdded(object? sender, ProfileConfigurationEventArgs e)
-    //{
-    //    AddDynamicChild(e.ProfileConfiguration.ProfileId.ToString(), new ProfileConfigurationDataModel(e.ProfileConfiguration), e.ProfileConfiguration.Name);
-    //}
-
-    //private void ProfileCategoryOnProfileConfigurationRemoved(object? sender, ProfileConfigurationEventArgs e)
-    //{
-    //    RemoveDynamicChildByKey(e.ProfileConfiguration.ProfileId.ToString());
-    //}
 }   
